@@ -10,7 +10,6 @@ public class A_01_NumbersVectorsDotProduct : MonoBehaviour
     [SerializeField] private bool Distance_Length_Direction = false;
     [SerializeField] private bool Dot_Product = true;
 
-
     private void OnDrawGizmos()
     {
         if (Distance_Length_Direction) DistanceLengthDirection();
