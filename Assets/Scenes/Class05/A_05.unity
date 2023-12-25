@@ -438,12 +438,43 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 175333382}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.12, y: 8.18, z: -1.34}
+  m_LocalPosition: {x: 1.4, y: 10.78, z: -1.34}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 14
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &222818409
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 222818411}
+  m_Layer: 0
+  m_Name: AngleTest
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &222818411
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 222818409}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 15
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &325077718
 GameObject:
@@ -839,7 +870,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 643563909}
-  - component: {fileID: 643563908}
+  - component: {fileID: 643563910}
   m_Layer: 0
   m_Name: WedgeTrigger
   m_TagString: Untagged
@@ -847,22 +878,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &643563908
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 643563907}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: deee15a8f8b587344bd4374f43d052ff, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  target: {fileID: 175333383}
-  radius: 5
-  height: 3
-  angThresh: 0.61
 --- !u!4 &643563909
 Transform:
   m_ObjectHideFlags: 0
@@ -878,6 +893,23 @@ Transform:
   m_Father: {fileID: 1484622148}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &643563910
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 643563907}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 791c0f8ccb5da34419c4d75765e4e7d5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  angDeg: 0
+  target: {fileID: 175333383}
+  radius: 5
+  height: 3
+  fovDeg: 45
 --- !u!1 &797591805
 GameObject:
   m_ObjectHideFlags: 0
@@ -1277,7 +1309,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1484622148}
-  - component: {fileID: 1484622149}
   m_Layer: 0
   m_Name: turretpivot
   m_TagString: Untagged
@@ -1292,8 +1323,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1484622147}
-  m_LocalRotation: {x: 0.02121063, y: 0.9932627, z: 0.09087065, w: 0.06871624}
-  m_LocalPosition: {x: 0.8373811, y: 6.3038006, z: 1.4171596}
+  m_LocalRotation: {x: 0.07824077, y: 0.98606014, z: 0.09769868, w: 0.1096302}
+  m_LocalPosition: {x: 1.3535405, y: 6.2342076, z: 1.5491433}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1303,22 +1334,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1484622149
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1484622147}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 149f5d43cca6c8747ae014e261cc2204, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  target: {fileID: 175333383}
-  trigger: {fileID: 643563908}
-  gunTf: {fileID: 1173398305}
-  smoothingFactor: 1
 --- !u!1 &1730649686
 GameObject:
   m_ObjectHideFlags: 0
@@ -1784,14 +1799,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1989777386}
-  m_LocalRotation: {x: 0.009270422, y: 0.9890208, z: -0.12932913, w: 0.070893854}
+  m_LocalRotation: {x: 0.016110223, y: 0.9837313, z: -0.13510428, w: 0.11730295}
   m_LocalPosition: {x: 0.03, y: 7.81, z: 7.02}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 14.9, y: 171.8, z: 0}
+  m_LocalEulerAnglesHint: {x: 15.64, y: 166.4, z: 0}
 --- !u!114 &1989777390
 MonoBehaviour:
   m_ObjectHideFlags: 0
