@@ -64,7 +64,7 @@ public class TurretPlacer : MonoBehaviour {
 	}
 
 	void FixedUpdate() {
-		vel /= drag; // movement dampening
+		vel /= drag; // movement dampening(amortecimento)
 	}
 
 
