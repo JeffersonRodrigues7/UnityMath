@@ -18,6 +18,8 @@ public class CubeMover : MonoBehaviour {
 
 	// every rendered frame
 	public void Update() {
+
+
 		transform.position = startPos + new Vector3( PositionX( Time.time ), 0, 0 );
 	}
 

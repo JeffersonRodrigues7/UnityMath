@@ -2,71 +2,70 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
-using static UnityEngine.GraphicsBuffer;
 
-public class A_05_TrigonometryRotations : MonoBehaviour
+public class Ex07_TriggerInnerRadius : MonoBehaviour
 {
-    //anglDegreesRadiansPart
-    [Range(0, 360)]
-    public float angDeg = 0;
-
-
     public Transform target;
 
-    public float radius = 1;
+    public float radiusOuter = 1;
+    public float radiusInner = 1;
     public float height = 1;
 
     //WedgeTrigger com ângulos
     [Range(0, 360)]
     public float fovDeg = 45;//fov = field of view
 
-    float fovRad => fovDeg * Mathf.Deg2Rad;
-    float angThresh => Mathf.Cos(fovDeg * Mathf.Deg2Rad/2);//Agora não estou mais definindo angThresh = p hardcoded
+    float fovRad => fovDeg * Mathf.Deg2Rad;//field of view em radianos
+    float angThresh => Mathf.Cos(fovRad / 2);//Agora não estou mais definindo angThresh = p hardcoded
 
     private void OnDrawGizmos()
     {
-        //Quaternion up90 = Quaternion.AngleAxis(90, Vector3.up);//Permite rotacionar usando o formato de Angle Axis
+        localSpace();
+    }
 
-        //Quaternion rotA = Quaternion.Euler(90, 90, 45);
-        //Quaternion rotB = Quaternion.AngleAxis(60, Vector3.right);
-        //Quaternion rotCombined = rotA * rotB;//ordem importa
-        //Quaternion rotInverse = Quaternion.Inverse(rotCombined);
-        //Vector3 rotateVector = rotInverse * vLeft;//Ordem importa, rotação vem primeiro
-
-        //anglDegreesRadiansPart();
-
+    public void localSpace()
+    {
         //Makes gizmos e Handles relative to this transform ao invés do world, então muita coisa pode ser jogada fora
         Gizmos.matrix = Handles.matrix = transform.localToWorldMatrix;
 
         //Se o objeto estiver dentro do range, pintaremos tudo de branco, caso contrário, ficará vermelho
         Gizmos.color = Handles.color = Contains(target.position) ? Color.white : Color.red;
 
-        //Observe que não precisamos mais dos atributos de origin, up, right e forward, pois gizmos e handle estão no local space
-
         Vector3 top = new Vector3(0, height, 0);//Posição do topo do cilindro
 
         float p = angThresh; //Seria o produto vetorial entre a direção forward do player e a direção até o inimigo
+        Debug.Log(p);
         float x = Mathf.Sqrt(1 - p * p);
 
         //Abaixo vamois desenhar um raio que vai do centro do objeto até a ponta do arco que leva em conta a abertura,
         //que se dá pelo anglethreshold e pelo x calculado
-        Vector3 vLeft = new Vector3(-x, 0, p) * radius;//Definindo ponto que toca arco do lado direito do centro
-        Vector3 vRight = new Vector3(x, 0, p) * radius;
+        Vector3 vLeftDir = new Vector3(-x, 0, p);//Definindo ponto que toca arco do lado direito do centro
+        Vector3 vRightDir = new Vector3(x, 0, p);
 
-        //Desenhando arco que começa da esquerda(Vleft) e uma qtd de graus (fovDeg) para direita, considerando o raio(radius)
-        Handles.DrawWireArc(default, Vector3.up, vLeft, fovDeg, radius);
-        Handles.DrawWireArc(top, Vector3.up, vLeft, fovDeg, radius);
+        Vector3 vLeftOuter = vLeftDir * radiusOuter;
+        Vector3 vRightOuter = vRightDir * radiusOuter;
+        
+        Vector3 vLeftInner = vLeftDir * radiusInner;
+        Vector3 vRightInner = vRightDir * radiusInner;
+
+        Handles.DrawWireArc(default, Vector3.up, vLeftOuter, fovDeg, radiusOuter);
+        Handles.DrawWireArc(top, Vector3.up, vLeftOuter, fovDeg, radiusOuter);
+
+        Handles.DrawWireArc(default, Vector3.up, vLeftInner, fovDeg, radiusInner);
+        Handles.DrawWireArc(top, Vector3.up, vLeftInner, fovDeg, radiusInner);
 
         //Desenhando raios
-        Gizmos.DrawRay(default, vLeft);//default neste caso é Vector3.zero
-        Gizmos.DrawRay(default, vRight);
-        Gizmos.DrawRay(top, vLeft);
-        Gizmos.DrawRay(top, vRight);
+        Gizmos.DrawLine(vLeftInner, vLeftOuter);//default neste caso é Vector3.zero
+        Gizmos.DrawLine(vRightInner, vRightOuter);
+        Gizmos.DrawLine(top + vLeftInner, top + vLeftOuter);
+        Gizmos.DrawLine(top + vRightInner, top + vRightOuter);
 
-        Gizmos.DrawLine(default, top);
-        Gizmos.DrawLine(vLeft, top + vLeft);
-        Gizmos.DrawLine(vRight, top + vRight);
+        Gizmos.DrawLine(vLeftInner, top+ vLeftInner);
+        Gizmos.DrawLine(vRightInner, top+ vRightInner);
+        Gizmos.DrawLine(vLeftOuter, top + vLeftOuter);
+        Gizmos.DrawLine(vRightOuter, top + vRightOuter);
     }
+
 
     //verifica se uma posição está contida na figura
     public bool Contains(Vector3 position)
@@ -98,33 +97,12 @@ public class A_05_TrigonometryRotations : MonoBehaviour
         if (flatDirToTarget.z < angThresh) return false;//outside of the angular wedge
 
         /** cylindrical radial */
-        if (flatDistance > radius) return false; //outisde of the infinity cylinder
+        //Verificanso se objeto não está nem muito perto, nem muito longe do inimigo
+        if (flatDistance > radiusOuter || flatDistance < radiusInner) return false; //outisde of the infinity cylinder
 
 
         //we are inside
         return true;
     }
-
-    public void anglDegreesRadiansPart()
-    {
-        Handles.DrawWireDisc(Vector3.zero, Vector3.forward, 1);
-
-        float angRad = angDeg * Mathf.Deg2Rad;
-
-        //float angTurns = (float)EditorApplication.timeSinceStartup;//tempo em turns
-
-        Vector2 v = new Vector2(Mathf.Cos(angRad), Mathf.Sin(angRad));//Achando respectivamente os pontos em X e Y do vetor
-        //Vector2 v = new Vector2(Mathf.Cos(angTurns*Mathf.PI*2), Mathf.Sin(angTurns * Mathf.PI * 2));//Achando respectivamente os pontos em X e Y do vetor
-
-        Gizmos.DrawRay(default, v);
-    }
-
-
-    private void Update()
-    {
-        float myAngleDeg = 45f;
-        float myAngleRad = myAngleDeg * Mathf.Deg2Rad;//convert degrees to radians
-        myAngleDeg = myAngleRad * Mathf.Deg2Rad;//convert radians to degrees
-    }
-
 }
+

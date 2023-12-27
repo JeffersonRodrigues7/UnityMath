@@ -16,7 +16,7 @@ public class MathTrigger : MonoBehaviour {
 	public Transform target;
 
 	public Shape shape;
-	[FormerlySerializedAs( "radius" )]
+	[FormerlySerializedAs( "radiusOuter" )]
 	public float radiusOuter = 1;
 	public float radiusInner = 1;
 	public float height = 1;

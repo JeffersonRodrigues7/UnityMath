@@ -31,7 +31,7 @@ public class TriangleTesting : MonoBehaviour {
 		bool ab = GetSide( a, b, pt );
 		bool bc = GetSide( b, c, pt );
 		bool ca = GetSide( c, a, pt );
-		return ab == bc && bc == ca;
+		return ab == bc && bc == ca;//significa q todos estão no mesmo lado
 	}
 
 	bool GetSide( Vector2 a, Vector2 b, Vector2 p ) {
