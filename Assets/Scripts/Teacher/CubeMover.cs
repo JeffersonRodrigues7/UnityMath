@@ -12,9 +12,9 @@ public class CubeMover : MonoBehaviour {
 		Gizmos.DrawRay( transform.position, new Vector3( VelocityX( Time.time ), 0, 0 ) );
 	}
 
-	float PositionX( float t ) => -2 * t + t * t;
+	float PositionX( float t ) => -2 * t + t * t;//posição mudando com aceleração
 
-	float VelocityX( float t ) => -2 + 2 * t;
+	float VelocityX( float t ) => -2 + 2 * t;//posição mudando com velocidade
 
 	// every rendered frame
 	public void Update() {

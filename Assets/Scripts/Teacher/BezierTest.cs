@@ -17,6 +17,8 @@ public class BezierTest : MonoBehaviour {
 		Gizmos.DrawLine( a, b );
 		Gizmos.DrawLine( b, c );
 		Gizmos.DrawLine( c, d );
+
+		
 		
 		// draw the curve
 		const int DETAIL = 32;

@@ -8,7 +8,7 @@ public class Trajectory : MonoBehaviour {
 	public float drawDuration = 1;
 	Vector3 Pos => transform.position;
 	Vector3 Vel => transform.right * launchSpeed;
-	Vector3 Acc => Physics.gravity;
+	Vector3 Acc => Physics.gravity;//pode apontar para qualquer direção
 	public Rigidbody rb; // test object
 
 	void Awake() {
